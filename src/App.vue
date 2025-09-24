@@ -28,8 +28,6 @@ header {
   width: 105%;
   height: 300px;
   background-image: url('/src/assets/Purple.png');
-  /* background-size: contain;
-  background-repeat: repeat-x; */
   rotate: -3deg;
   top: 30px;
   right: -10px;
