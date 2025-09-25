@@ -56,7 +56,7 @@ export const jobExperience: Experience[] = [
     'Apputvecklare',
     'Queenslab',
     'Göteborg',
-    new Date(2021, 1),
+    new Date('2021-01'),
     new Date(2021, 4),
     'Detta var en praktik där jag utvecklade min första mobilapp',
     '',
@@ -137,7 +137,7 @@ export const education: Experience[] = [
   new Experience(
     'Kotlin + Jetpack',
     'Udemy',
-    'Här fick jag en kickstart på min resa att utveckla appar med Kotlin',
+    'Här fick jag en kickstart på min resa att utveckla appar med Kotlin.',
     new Date(2025, 0),
     new Date(2025, 2),
     '',
