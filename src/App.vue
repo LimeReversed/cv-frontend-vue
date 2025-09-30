@@ -11,7 +11,9 @@ onMounted(() => {
 <template>
   <div class="app-container">
     <header>
-      <div class="header-top"></div>
+      <div class="header-top">
+        <div class="blurr-test"></div>
+      </div>
     </header>
     <RouterView />
   </div>
@@ -24,17 +26,24 @@ header {
   overflow: hidden;
 }
 
+.blurr-test {
+  width: 100%;
+  height: 50px;
+  backdrop-filter: blur(10px);
+}
+
 .header-top {
-  background-color: rgb(41, 41, 41);
+  /* background-color: rgb(41, 41, 41); */
   height: 150px;
   width: 100%;
+  background-image: url('/src/assets/images/Purple.png');
 }
 
 .header-middle {
   position: absolute;
   width: 105%;
   height: 300px;
-  background-image: url('/src/assets/Purple.png');
+
   rotate: -3deg;
   top: 30px;
   right: -10px;

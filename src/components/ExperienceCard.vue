@@ -9,7 +9,12 @@ const props = defineProps<{
 
 // https://stackoverflow.com/questions/3552461/how-do-i-format-a-date-in-javascript
 const period = computed(function () {
-  return `${new Date(props.experience.from).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })} - ${new Date(props.experience.to)?.toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })}`
+  const fromOptions: Intl.DateTimeFormatOptions =
+    props.experience.from.length > 4 ? { year: 'numeric', month: 'long' } : { year: 'numeric' }
+  const toOptions: Intl.DateTimeFormatOptions =
+    props.experience.to.length > 4 ? { year: 'numeric', month: 'long' } : { year: 'numeric' }
+
+  return `${new Date(props.experience.from).toLocaleDateString('sv-SE', fromOptions)} - ${new Date(props.experience.to)?.toLocaleDateString('sv-SE', toOptions)}`
 })
 </script>
 
