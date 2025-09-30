@@ -1,21 +1,15 @@
 <script setup lang="ts">
-import Experience from '@/classes/experience'
+import { type ExperienceResponseItem } from '@/classes/experience'
 import { computed } from 'vue'
 import Tag from './Tag.vue'
 
 const props = defineProps<{
-  experience: Experience
+  experience: ExperienceResponseItem
 }>()
 
-// const expanded = ref(true)
-// const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
 // https://stackoverflow.com/questions/3552461/how-do-i-format-a-date-in-javascript
-// Why can't I use options from here?
-// Have options member in experience-class to controll if month should show?
-// Visa mer behöver vara en knapp, med pil ner.
-
 const period = computed(function () {
-  return `${props.experience.from.toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })} - ${props.experience.to?.toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })}`
+  return `${new Date(props.experience.from).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })} - ${new Date(props.experience.to)?.toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })}`
 })
 </script>
 

@@ -1,18 +1,17 @@
 import Project from '@classes/project'
 import Tag from '@classes/tag'
 
-export class Experience {
-  constructor(
-    public title: string,
-    public orgName: string,
-    public location: string,
-    public from: Date,
-    public to: Date | null,
-    public tldr: string,
-    public description: string,
-    public projects: Project[],
-    public tags: Tag[],
-  ) {}
+// Projects and tags do come with the response
+// Try going with only this interface?
+export interface ExperienceResponseItem {
+  title: string
+  orgName: string
+  location: string
+  from: string
+  to: string
+  tldr: string
+  description: string
+  projects: Project[]
+  tags: Tag[]
+  type: string
 }
-
-export default Experience

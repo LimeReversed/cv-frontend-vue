@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import { onMounted } from 'vue'
+import { experienceStore } from './stores/experience'
+
+onMounted(() => {
+  const store = experienceStore()
+  store.loadAll()
+})
 </script>
 <template>
   <div class="app-container">
