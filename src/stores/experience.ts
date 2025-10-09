@@ -10,7 +10,7 @@ export const experienceStore = defineStore('experience', () => {
 
   async function loadAll() {
     try {
-      const response = await fetch(`http://localhost:5143/experience`, {
+      const response = await fetch(`${process.env.BACKENT_PATH}experience`, {
         method: 'GET',
         headers: {
           // Authorization: `Bearer ${tokenObject.idToken}`
