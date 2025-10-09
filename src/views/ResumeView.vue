@@ -17,13 +17,12 @@ const store = experienceStore()
 
 <style scoped>
 main {
-  width: 100%;
+  width: 50%;
   padding: 75px 0px 0px 0px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  background-blend-mode: lighten;
+  background-color: rgba(255, 255, 255);
 }
 
 h1 {

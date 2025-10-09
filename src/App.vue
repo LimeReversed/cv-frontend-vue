@@ -10,43 +10,46 @@ onMounted(() => {
 </script>
 <template>
   <div class="app-container">
-    <header>
-      <div class="header-top">
-        <div class="blurr-test"></div>
+    <header class="header">
+      <div class="wrapper">
+        <div class="blur"></div>
       </div>
     </header>
+
     <RouterView />
   </div>
 </template>
 
 <style scoped>
-header {
+.app-container {
   width: 100%;
-  position: relative;
-  overflow: hidden;
+  background-image: url('/src/assets/images/lights.png');
+  background-size: 125%;
+  background-position: bottom right;
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.blurr-test {
-  width: 100%;
-  height: 50px;
-  backdrop-filter: blur(10px);
-}
-
-.header-top {
-  /* background-color: rgb(41, 41, 41); */
-  height: 150px;
-  width: 100%;
-  background-image: url('/src/assets/images/Purple.png');
-}
-
-.header-middle {
-  position: absolute;
-  width: 105%;
+.header {
   height: 300px;
+  width: 100%;
+}
 
-  rotate: -3deg;
-  top: 30px;
-  right: -10px;
+.wrapper {
+  width: 100%;
+  backdrop-filter: blur(6px);
+  background: rgba(212, 203, 217, 0.363);
+  position: fixed;
+  top: 0;
+  border-bottom: 1px solid rgb(126, 122, 130);
+  z-index: 999;
+}
+
+.blur {
+  width: 100%;
+  padding: 30px;
+  min-height: 100px;
 }
 
 .header-bottom {
@@ -54,41 +57,5 @@ header {
   flex-direction: row;
   width: 100%;
   height: 100%;
-}
-
-.header-bottom-left {
-  width: 300px;
-  height: 100%;
-  background-color: rgb(238, 238, 238);
-}
-
-.header-bottom-right {
-  width: 100%;
-  height: 100%;
-  background-image: url('/src/assets/Orange.png');
-  /* background-size: contain; */
-  background-position: 100% -150%;
-}
-
-/* .content {
-  display: inline-flex;
-  flex-direction: row;
-  flex: 1;
-}
-
-.content-left {
-  width: 300px;
-  height: 100%;
-  background-color: rgb(238, 238, 238);
-}
-
-.content-right {
-  width: 100%;
-  height: 100%;
-} */
-
-.app-container {
-  height: 100%;
-  width: 100%;
 }
 </style>
