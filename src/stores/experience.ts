@@ -9,8 +9,9 @@ export const experienceStore = defineStore('experience', () => {
   const hobbies: Ref<ExperienceResponseItem[]> = ref([])
 
   async function loadAll() {
+    console.log(`${import.meta.env.VITE_BACKEND_PATH}experience`)
     try {
-      const response = await fetch(`${process.env.BACKENT_PATH}experience`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_PATH}experience`, {
         method: 'GET',
         headers: {
           // Authorization: `Bearer ${tokenObject.idToken}`
