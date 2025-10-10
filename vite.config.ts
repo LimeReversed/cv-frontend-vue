@@ -14,4 +14,7 @@ export default defineConfig({
       '@classes': fileURLToPath(new URL('./src/classes', import.meta.url)),
     },
   },
+  server: {
+    allowedHosts: ['emilrundberg.se'],
+  },
 })

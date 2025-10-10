@@ -17,7 +17,8 @@ const store = experienceStore()
 
 <style scoped>
 main {
-  width: 50%;
+  width: 100%;
+  min-width: 450px;
   padding: 75px 0px 0px 0px;
   display: inline-flex;
   flex-direction: column;

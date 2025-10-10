@@ -10,38 +10,32 @@ onMounted(() => {
 </script>
 <template>
   <div class="app-container">
-    <header class="header">
-      <div class="wrapper">
-        <div class="blur"></div>
-      </div>
-    </header>
+    <header class="header"></header>
+    <div class="wrapper">
+      <div class="blur"></div>
+    </div>
 
     <RouterView />
   </div>
 </template>
 
 <style scoped>
-.app-container {
-  width: 100%;
-  background-image: url('/src/assets/images/lights.png');
-  background-size: 125%;
-  background-position: bottom right;
-  display: inline-flex;
-  align-items: center;
-  flex-direction: column;
-}
-
 .header {
-  height: 300px;
+  background-image: url('/src/assets/images/Hong Kong.webp');
+  background-position: center;
+  background-size: cover;
+  height: 400px;
   width: 100%;
 }
 
 .wrapper {
   width: 100%;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(20px);
   background: rgba(212, 203, 217, 0.363);
-  position: fixed;
+  position: sticky;
+  margin-top: -100px;
   top: 0;
+  border-top: 1px solid rgb(126, 122, 130);
   border-bottom: 1px solid rgb(126, 122, 130);
   z-index: 999;
 }
@@ -49,7 +43,7 @@ onMounted(() => {
 .blur {
   width: 100%;
   padding: 30px;
-  min-height: 100px;
+  height: 100px;
 }
 
 .header-bottom {
