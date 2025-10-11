@@ -2,6 +2,7 @@
 import { type ExperienceResponseItem } from '@/classes/experience'
 import { computed } from 'vue'
 import Tag from './Tag.vue'
+import type TagType from '@/classes/tag'
 
 const props = defineProps<{
   experience: ExperienceResponseItem
@@ -16,6 +17,10 @@ const period = computed(function () {
 
   return `${new Date(props.experience.from).toLocaleDateString('sv-SE', fromOptions)} - ${new Date(props.experience.to)?.toLocaleDateString('sv-SE', toOptions)}`
 })
+
+const sortedTags = (tags: TagType[]) => {
+  return tags.sort((a: TagType, b: TagType) => b.level - a.level)
+}
 </script>
 
 <template>
@@ -29,7 +34,7 @@ const period = computed(function () {
     </div>
     <p>{{ experience.tldr }}</p>
     <div class="tags">
-      <div class="tag" v-for="tag in experience.tags" :key="tag.name">
+      <div class="tag" v-for="tag in sortedTags(experience.tags)" :key="tag.name">
         <Tag :tag="tag" />
       </div>
     </div>
@@ -65,26 +70,8 @@ const period = computed(function () {
   position: relative;
   width: 100%;
   max-width: 800px;
-  /* margin-bottom: 0px; */
-  /* border-bottom: 1px solid gainsboro; */
   padding: 0px 40px 10px 40px;
 }
-
-/* .container::after {
-  content: '';
-  position: absolute;
-  width: 40%;
-  height: 1px;
-  background-color: gainsboro;
-  left: 25%;
-  bottom: 0px;
-} */
-
-/* .border {
-  margin: auto;
-  width: 100px;
-  border-bottom: 1px solid gainsboro;
-} */
 
 .details {
   display: inline-flex;

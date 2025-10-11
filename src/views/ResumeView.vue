@@ -1,13 +1,58 @@
 <script setup lang="ts">
 import ExperienceCard from '@/components/ExperienceCard.vue'
-
+import type Tag from '@/classes/tag'
 import { experienceStore } from '../stores/experience'
+import { computed, ref, type Ref } from 'vue'
+import TagComponent from '@/components/Tag.vue'
 
+// Computed
+const getAllTags = computed(() => {
+  const result: Tag[] = []
+  const allExperiences = [...store.jobs, ...store.education, ...store.hobbies]
+  const seen = new Set()
+
+  allExperiences.forEach((experience) => {
+    experience.tags.forEach((tag) => {
+      if (!seen.has(tag.name)) {
+        seen.add(tag.name)
+        result.push(tag)
+      }
+    })
+  })
+
+  result.sort((a: Tag, b: Tag) => b.level - a.level)
+
+  return result
+})
+
+// Variables
 const store = experienceStore()
+
+// Refs
+const allTags: Ref<Tag[]> = ref(getAllTags)
 </script>
 
 <template>
   <main>
+    <div class="level-indicator-container">
+      <div class="level-indicator-item">
+        <div class="confident-indicator"></div>
+        <p>Självsäker</p>
+      </div>
+      <div class="level-indicator-item">
+        <div class="ok-indicator"></div>
+        <p>OK</p>
+      </div>
+      <div class="level-indicator-item">
+        <div class="beginner-indicator"></div>
+        <p>Nybörjare</p>
+      </div>
+    </div>
+    <div class="tag-list-container">
+      <div v-for="tag in allTags" :key="tag.name" class="tag-list-item">
+        <TagComponent :tag="tag" />
+      </div>
+    </div>
     <h1>Erfarenheter</h1>
     <ExperienceCard v-for="ex in store.jobs" :key="ex.title" :experience="ex" />
     <h1>Utbildning</h1>
@@ -16,14 +61,59 @@ const store = experienceStore()
 </template>
 
 <style scoped>
+@import '../assets/main.css';
+
 main {
   width: 100%;
   min-width: 450px;
-  padding: 75px 0px 0px 0px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   background-color: rgba(255, 255, 255);
+}
+
+.tag-list-container {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  max-width: 1024px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.level-indicator-container {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 1024px;
+  padding: 50px 0px 25px 0px;
+}
+
+.level-indicator-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confident-indicator {
+  background-color: var(--color-confident-tag);
+  width: 200%;
+  height: 35px;
+}
+
+.ok-indicator {
+  background-color: var(--color-ok-tag);
+  width: 200%;
+  height: 35px;
+  margin: 0px 35px;
+}
+
+.beginner-indicator {
+  background-color: var(--color-beginner-tag);
+  width: 200%;
+  height: 35px;
 }
 
 h1 {
