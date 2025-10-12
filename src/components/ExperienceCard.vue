@@ -71,6 +71,8 @@ const sortedTags = (tags: TagType[]) => {
   width: 100%;
   max-width: 800px;
   padding: 0px 40px 10px 40px;
+  border-bottom: solid 1px rgb(216, 216, 216);
+  margin-bottom: 20px;
 }
 
 .details {
