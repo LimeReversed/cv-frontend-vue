@@ -1,35 +1,9 @@
 <script setup lang="ts">
 import ExperienceCard from '@/components/ExperienceCard.vue'
-import type Tag from '@/classes/tag'
 import { experienceStore } from '../stores/experience'
-import { computed, ref, type Ref } from 'vue'
 import TagComponent from '@/components/Tag.vue'
 
-// Computed
-const getAllTags = computed(() => {
-  const result: Tag[] = []
-  const allExperiences = [...store.jobs, ...store.education, ...store.hobbies]
-  const seen = new Set()
-
-  allExperiences.forEach((experience) => {
-    experience.tags.forEach((tag) => {
-      if (!seen.has(tag.name)) {
-        seen.add(tag.name)
-        result.push(tag)
-      }
-    })
-  })
-
-  result.sort((a: Tag, b: Tag) => b.level - a.level)
-
-  return result
-})
-
-// Variables
 const store = experienceStore()
-
-// Refs
-const allTags: Ref<Tag[]> = ref(getAllTags)
 </script>
 
 <template>
@@ -49,7 +23,11 @@ const allTags: Ref<Tag[]> = ref(getAllTags)
       </div>
     </div>
     <div class="tag-list-container">
-      <div v-for="tag in allTags" :key="tag.name" class="tag-list-item">
+      <div
+        v-for="tag in store.tagsShown.size === 0 ? store.allTags : store.tagsShown"
+        :key="tag.name"
+        class="tag-list-item"
+      >
         <TagComponent :tag="tag" />
       </div>
     </div>
@@ -101,6 +79,7 @@ main {
   background-color: var(--color-confident-tag);
   width: 200%;
   height: 35px;
+  border-radius: 10px;
 }
 
 .ok-indicator {
@@ -108,12 +87,14 @@ main {
   width: 200%;
   height: 35px;
   margin: 0px 35px;
+  border-radius: 10px;
 }
 
 .beginner-indicator {
   background-color: var(--color-beginner-tag);
   width: 200%;
   height: 35px;
+  border-radius: 10px;
 }
 
 h1 {

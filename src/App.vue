@@ -2,6 +2,7 @@
 import { RouterView } from 'vue-router'
 import { onMounted } from 'vue'
 import { experienceStore } from './stores/experience'
+import Filter from '@/components/Filter.vue'
 
 onMounted(() => {
   const store = experienceStore()
@@ -12,7 +13,7 @@ onMounted(() => {
   <div class="app-container">
     <header class="header"></header>
     <div class="wrapper">
-      <div class="blur"></div>
+      <Filter />
     </div>
 
     <RouterView />
@@ -31,19 +32,13 @@ onMounted(() => {
 .wrapper {
   width: 100%;
   backdrop-filter: blur(20px);
-  background: rgba(212, 203, 217, 0.363);
+  background: rgba(184, 175, 190, 0.363);
   position: sticky;
   margin-top: -100px;
-  top: 0;
+  top: 0px;
   border-top: 1px solid rgb(126, 122, 130);
   border-bottom: 1px solid rgb(126, 122, 130);
   z-index: 999;
-}
-
-.blur {
-  width: 100%;
-  padding: 30px;
-  height: 100px;
 }
 
 .header-bottom {

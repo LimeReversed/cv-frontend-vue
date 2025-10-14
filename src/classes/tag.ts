@@ -1,5 +1,6 @@
 export class Tag {
   constructor(
+    public id: number,
     public name: string,
     public level: number,
     public category: string,
