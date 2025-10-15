@@ -90,6 +90,10 @@ export const experienceStore = defineStore('experience', () => {
           education.value.push(experience)
         }
       })
+
+      jobs.value.sort((a, b) => b.from.localeCompare(a.from))
+      hobbies.value.sort((a, b) => b.from.localeCompare(a.from))
+      education.value.sort((a, b) => b.from.localeCompare(a.from))
     } catch (err) {
       console.log(err)
     }
