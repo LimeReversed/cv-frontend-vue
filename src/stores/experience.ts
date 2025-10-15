@@ -5,11 +5,97 @@ import { type ExperienceResponseItem } from '@/classes/experience'
 import Tag from '@/classes/tag'
 
 export const experienceStore = defineStore('experience', () => {
+  /* STATE */
+  const tags: Ref<Tag[]> = ref([])
+  const tagsToShow: Ref<Set<string>> = ref(new Set<string>())
   const jobs: Ref<ExperienceResponseItem[]> = ref([])
   const education: Ref<ExperienceResponseItem[]> = ref([])
   const hobbies: Ref<ExperienceResponseItem[]> = ref([])
-  const allTags: Ref<Tag[]> = ref([])
 
+  /* GETTTERS */
+  const filteredTags: ComputedRef<Tag[]> = computed(() =>
+    tagsToShow.value.size === 0
+      ? tags.value
+      : tags.value.filter((tag) => tagsToShow.value.has(tag.name)),
+  )
+
+  const tagsByCategory: ComputedRef<Map<string, Tag[]>> = computed(() => {
+    const map = new Map<string, Tag[]>()
+
+    tags.value.forEach((tag: Tag) => {
+      if (!map.has(tag.category)) {
+        map.set(tag.category, [tag])
+      } else {
+        map.get(tag.category)?.push(tag)
+      }
+    })
+
+    return map
+  })
+
+  const filteredJobs: ComputedRef<ExperienceResponseItem[]> = computed(() => {
+    return tagsToShow.value.size === 0
+      ? jobs.value
+      : jobs.value.filter((job) => {
+          return job.tags.some((tag) => tagsToShow.value.has(tag.name))
+        })
+  })
+
+  const filteredEducation: ComputedRef<ExperienceResponseItem[]> = computed(() => {
+    return tagsToShow.value.size === 0
+      ? education.value
+      : education.value.filter((education) => {
+          return education.tags.some((tag) => tagsToShow.value.has(tag.name))
+        })
+  })
+
+  const filteredHobbies: ComputedRef<ExperienceResponseItem[]> = computed(() => {
+    return tagsToShow.value.size === 0
+      ? hobbies.value
+      : hobbies.value.filter((hobby) => {
+          return hobby.tags.some((tag) => tagsToShow.value.has(tag.name))
+        })
+  })
+
+  /* ACTIONS */
+  const checkTag = (tag: Tag) => {
+    tagsToShow.value.add(tag.name)
+  }
+
+  const uncheckTag = (tag: Tag) => {
+    tagsToShow.value.delete(tag.name)
+  }
+
+  async function loadAll() {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_PATH}experience`, {
+        method: 'GET',
+        headers: {
+          // Authorization: `Bearer ${tokenObject.idToken}`
+        },
+      })
+
+      const responseData = await response.json()
+
+      tags.value = extractTags(responseData)
+
+      responseData.map((data: ExperienceResponseItem) => {
+        const experience: ExperienceResponseItem = data
+
+        if (experience.type === 'Job') {
+          jobs.value.push(experience)
+        } else if (experience.type === 'Hobbies') {
+          hobbies.value.push(experience)
+        } else if (experience.type === 'Education') {
+          education.value.push(experience)
+        }
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  /* HELPERS */
   const extractTags = (experience: ExperienceResponseItem[]) => {
     const result: Tag[] = []
     const seen = new Set()
@@ -28,69 +114,19 @@ export const experienceStore = defineStore('experience', () => {
     return result
   }
 
-  // Maybe be a list so it can be sorted
-  const tagsShown = ref(new Set())
-
-  const checkTag = (tag: Tag) => {
-    tagsShown.value.add(tag)
-  }
-
-  const uncheckTag = (tag: Tag) => {
-    tagsShown.value.delete(tag)
-  }
-
-  const tagsByCategory: ComputedRef<Map<string, Tag[]>> = computed(() => {
-    const map = new Map<string, Tag[]>()
-
-    allTags.value.forEach((tag: Tag) => {
-      if (!map.has(tag.category)) {
-        map.set(tag.category, [tag])
-      } else {
-        map.get(tag.category)?.push(tag)
-      }
-    })
-
-    return map
-  })
-
-  async function loadAll() {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_PATH}experience`, {
-        method: 'GET',
-        headers: {
-          // Authorization: `Bearer ${tokenObject.idToken}`
-        },
-      })
-
-      const responseData = await response.json()
-
-      allTags.value = extractTags(responseData)
-
-      responseData.map((data: ExperienceResponseItem) => {
-        const experience: ExperienceResponseItem = data
-
-        if (experience.type === 'Job') {
-          jobs.value.push(experience)
-        } else if (experience.type === 'Hobbies') {
-          hobbies.value.push(experience)
-        } else if (experience.type === 'Education') {
-          education.value.push(experience)
-        }
-      })
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
   return {
     jobs,
+    filteredJobs,
     education,
+    filteredEducation,
     hobbies,
+    filteredHobbies,
     loadAll,
-    allTags,
+    tags,
     tagsByCategory,
-    tagsShown,
+    filteredTags,
     checkTag,
     uncheckTag,
+    tagsToShow,
   }
 })

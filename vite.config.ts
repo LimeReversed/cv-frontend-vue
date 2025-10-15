@@ -15,7 +15,7 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ['emilrundberg.se'],
+    allowedHosts: ['www.emilrundberg.se'],
   },
   base: '/',
 })

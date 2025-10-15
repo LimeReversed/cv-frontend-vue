@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type Tag from '@/classes/tag'
-import { onMounted, type Ref, ref } from 'vue'
+import { type Ref, ref } from 'vue'
 import { experienceStore } from '../stores/experience'
 
 const props = defineProps<{
@@ -27,8 +27,10 @@ const store = experienceStore()
             <label class="container">
               <input
                 type="checkbox"
-                :checked="store.tagsShown.has(tag)"
-                @click="store.tagsShown.has(tag) ? store.uncheckTag(tag) : store.checkTag(tag)"
+                :checked="store.tagsToShow.has(tag.name)"
+                @click="
+                  store.tagsToShow.has(tag.name) ? store.uncheckTag(tag) : store.checkTag(tag)
+                "
               />
               <span class="checkmark"></span>
             </label>

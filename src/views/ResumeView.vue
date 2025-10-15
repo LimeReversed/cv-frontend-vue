@@ -23,18 +23,16 @@ const store = experienceStore()
       </div>
     </div>
     <div class="tag-list-container">
-      <div
-        v-for="tag in store.tagsShown.size === 0 ? store.allTags : store.tagsShown"
-        :key="tag.name"
-        class="tag-list-item"
-      >
+      <div v-for="tag in store.filteredTags" :key="tag.name" class="tag-list-item">
         <TagComponent :tag="tag" />
       </div>
     </div>
-    <h1>Erfarenheter</h1>
-    <ExperienceCard v-for="ex in store.jobs" :key="ex.title" :experience="ex" />
-    <h1>Utbildning</h1>
-    <ExperienceCard v-for="ed in store.education" :key="ed.title" :experience="ed" />
+    <h1 v-if="store.filteredJobs.length > 0">Erfarenheter</h1>
+    <ExperienceCard v-for="ex in store.filteredJobs" :key="ex.title" :experience="ex" />
+    <h1 v-if="store.filteredEducation.length > 0">Utbildning</h1>
+    <ExperienceCard v-for="ed in store.filteredEducation" :key="ed.title" :experience="ed" />
+    <h1 v-if="store.filteredHobbies.length > 0">Hobbies</h1>
+    <ExperienceCard v-for="hobby in store.filteredHobbies" :key="hobby.title" :experience="hobby" />
   </main>
 </template>
 
