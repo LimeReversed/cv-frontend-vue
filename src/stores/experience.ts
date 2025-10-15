@@ -84,7 +84,7 @@ export const experienceStore = defineStore('experience', () => {
 
         if (experience.type === 'Job') {
           jobs.value.push(experience)
-        } else if (experience.type === 'Hobbies') {
+        } else if (experience.type === 'Hobby') {
           hobbies.value.push(experience)
         } else if (experience.type === 'Education') {
           education.value.push(experience)
