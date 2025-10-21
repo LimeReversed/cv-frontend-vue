@@ -2,12 +2,14 @@
 import ExperienceCard from '@/components/ExperienceCard.vue'
 import { experienceStore } from '../stores/experience'
 import TagComponent from '@/components/Tag.vue'
+import Filter from '@/components/Filter.vue'
 
 const store = experienceStore()
 </script>
 
 <template>
   <main>
+    <Filter />
     <div class="level-indicator-container">
       <div class="level-indicator-item">
         <div class="confident-indicator"></div>
@@ -23,7 +25,7 @@ const store = experienceStore()
       </div>
     </div>
     <div class="tag-list-container">
-      <div v-for="tag in store.filteredTags" :key="tag.name" class="tag-list-item">
+      <div v-for="tag in store.filteredTags" :key="tag.id" class="tag-list-item">
         <TagComponent :tag="tag" />
       </div>
     </div>
@@ -41,7 +43,6 @@ const store = experienceStore()
 
 main {
   width: 100%;
-  min-width: 450px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -75,14 +76,14 @@ main {
 
 .confident-indicator {
   background-color: var(--color-confident-tag);
-  width: 200%;
+  width: 100%;
   height: 35px;
   border-radius: 10px;
 }
 
 .ok-indicator {
   background-color: var(--color-ok-tag);
-  width: 200%;
+  width: 100%;
   height: 35px;
   margin: 0px 35px;
   border-radius: 10px;
@@ -90,7 +91,7 @@ main {
 
 .beginner-indicator {
   background-color: var(--color-beginner-tag);
-  width: 200%;
+  width: 100%;
   height: 35px;
   border-radius: 10px;
 }

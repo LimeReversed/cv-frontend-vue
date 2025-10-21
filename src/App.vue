@@ -2,7 +2,6 @@
 import { RouterView } from 'vue-router'
 import { onMounted } from 'vue'
 import { experienceStore } from './stores/experience'
-import Filter from '@/components/Filter.vue'
 
 onMounted(() => {
   const store = experienceStore()
@@ -12,9 +11,7 @@ onMounted(() => {
 <template>
   <div class="app-container">
     <header class="header"></header>
-    <div class="wrapper">
-      <Filter />
-    </div>
+    <!-- <div class="wrapper"></div> -->
 
     <RouterView />
   </div>
@@ -39,12 +36,5 @@ onMounted(() => {
   border-top: 1px solid rgb(126, 122, 130);
   border-bottom: 1px solid rgb(126, 122, 130);
   z-index: 999;
-}
-
-.header-bottom {
-  display: inline-flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
 }
 </style>

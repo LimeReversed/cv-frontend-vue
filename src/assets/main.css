@@ -9,7 +9,10 @@
 html,
 body,
 #app {
-  height: 100vh;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  min-width: var(--min-width);
 }
 
 /* @media (hover: hover) {

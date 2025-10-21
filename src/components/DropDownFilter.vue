@@ -2,113 +2,70 @@
 import type Tag from '@/classes/tag'
 import { type Ref, ref } from 'vue'
 import { experienceStore } from '../stores/experience'
+import CheckBox from './CheckBox.vue'
 
 const props = defineProps<{
   name: string
   tags: Tag[]
 }>()
 
+const emit = defineEmits(['click', 'mouseenter', 'mouseleave'])
+
 const show: Ref<boolean> = ref(false)
 const store = experienceStore()
+
+const clickHandler = () => {
+  emit('click')
+}
 </script>
 
 <template>
-  <div class="drop-down-button-container" @mouseover="show = true" @mouseleave="show = false">
-    <div class="drop-down-button" @click="show = !show">
+  <div class="button-container">
+    <div class="button" @click="clickHandler">
       <p class="category-name">{{ props.name }}</p>
-      <p v-if="show">▲</p>
-      <p v-if="!show">▼</p>
+      <p class="arrow"></p>
     </div>
-    <transition name="slide-fade">
-      <div v-if="show" class="drop-down-container">
-        <div class="drop-down">
-          <div v-for="tag in tags" :key="tag.name" class="item">
-            <p>{{ tag.name }}</p>
-            <label class="container">
-              <input
-                type="checkbox"
-                :checked="store.tagsToShow.has(tag.name)"
-                @click="
-                  store.tagsToShow.has(tag.name) ? store.uncheckTag(tag) : store.checkTag(tag)
-                "
-              />
-              <span class="checkmark"></span>
-            </label>
-          </div>
+    <div v-if="tags.length > 0" class="drop-down-container">
+      <div class="drop-down">
+        <div v-for="tag in tags" :key="tag.id" class="item">
+          <p>{{ tag.name }}</p>
+          <CheckBox
+            :checked="store.tagsToShow.has(tag.id)"
+            @click="store.tagsToShow.has(tag.id) ? store.uncheckTag(tag) : store.checkTag(tag)"
+          />
         </div>
       </div>
-    </transition>
+    </div>
   </div>
 </template>
 
 <style scoped>
 @import '../assets/main.css';
 
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
-}
-
-.slide-fade-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateY(-10px);
-  opacity: 0;
-}
-
-.drop-down-button-container {
+.button-container {
   --button-height: 35px;
   --border-radius: 15px;
-  height: 100%;
-  margin: 20px 10px;
-  border-radius: var(--border-radius);
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 1);
   position: relative;
   cursor: pointer;
 }
 
-.drop-down-button {
-  width: 100%;
-  height: var(--button-height);
-  padding: 0px 15px;
-  display: inline-flex;
-  justify-content: center;
-}
-
-.drop-down-button p {
-  margin-left: 20px;
-  line-height: var(--button-height);
-  font-weight: bold;
-  color: rgba(73, 59, 74, 0.7);
-  width: 20%;
-  text-align: center;
-}
-
-.drop-down-button .category-name {
-  color: rgba(73, 59, 74, 0.9);
-  width: 80%;
-}
-
-input[type='checkbox'] {
-  width: 20px;
-  height: 20px;
-}
-
 .drop-down-container {
+  display: none;
+}
+
+.button-container:focus .drop-down-container {
+  display: block;
   width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+  animation-name: showDropdown;
+  animation-duration: 0.3s;
 }
 
 .drop-down {
-  width: 200px;
-  background-color: rgba(255, 255, 255, 0.95);
-  border: solid 0.5px gainsboro;
-  border-radius: var(--border-radius);
-  margin-top: calc(var(--button-height) + 10px);
+  width: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  margin: 0px;
+  padding: 10px 0px;
 }
 
 .item {
@@ -117,78 +74,117 @@ input[type='checkbox'] {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 25px;
+  padding: 10px 35px;
+}
+
+.button {
+  width: 100%;
+  height: 100%;
+  padding: 20px 25px;
+  display: inline-flex;
+  justify-content: center;
+  background-color: unset;
+  border: unset;
+}
+
+.button:focus .arrow:after {
+  content: '▲';
+}
+.arrow:after {
+  content: '▼';
+}
+
+.button p {
+  margin-left: 10px;
+  line-height: 45px;
+  font-weight: bold;
+  color: rgba(73, 59, 74, 0.7);
+  width: 20%;
+  text-align: right;
+}
+
+.button .category-name {
+  color: rgba(73, 59, 74, 0.9);
+  width: 80%;
+  text-align: left;
 }
 
 .item p {
   font-weight: normal;
 }
 
-/* Customize the label (the container) */
-.container {
-  position: relative;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  height: 25px;
-  width: 25px;
+/* Animation */
+@keyframes showDropdown {
+  from {
+    top: 30px;
+    opacity: 0;
+  }
+  to {
+    top: 50px;
+    opacity: 1;
+  }
 }
 
-/* Hide the browser's default checkbox */
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+@keyframes hideDropdown {
+  from {
+    top: 50px;
+    opacity: 1;
+  }
+  to {
+    top: 30px;
+    opacity: 0;
+  }
 }
 
-/* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  border: solid 1px gainsboro;
-  border-radius: 5px;
-}
+@media (min-width: 1024px) {
+  .button-container .drop-down-container {
+    visibility: hidden;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    width: 225px;
+    animation-name: hideDropdown;
+    animation-duration: 0.3s;
+    transition: all 0.3s ease;
+  }
 
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-  background-color: #f7e7ff;
-}
+  .button-container:hover .drop-down-container {
+    visibility: visible;
+    animation-name: showDropdown;
+    animation-duration: 0.3s;
+  }
 
-/* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  background-color: #9521f3;
-}
+  .button-container:hover .arrow:after {
+    content: '▲';
+  }
+  .arrow:after {
+    content: '▼';
+  }
 
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-  content: '';
-  position: absolute;
-  display: none;
-}
+  .button-container {
+    width: unset;
+    height: 100%;
+  }
 
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
-  display: block;
-}
+  .button {
+    height: 100%;
+  }
 
-/* Style the checkmark/indicator */
-.container .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+  .drop-down {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: solid 0.5px gainsboro;
+    border-radius: var(--border-radius);
+    margin-top: calc(var(--button-height) + 10px);
+  }
+
+  .button p {
+    text-align: center;
+  }
+
+  .button .category-name {
+    text-align: center;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+  }
 }
 </style>

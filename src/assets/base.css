@@ -1,19 +1,23 @@
-/* color palette from <https://github.com/vuejs/theme> */
+/* Base variables */
 :root {
-  --vt-c-indigo: #2c3e50;
-  --vt-c-text-light-1: var(--vt-c-indigo);
+  /* Colors */
+  --color-text: #302343;
   --text-purple: rgb(124, 0, 151);
 
   --color-confident-tag: rgb(246, 178, 255);
   --color-ok-tag: rgb(255, 235, 196);
   --color-beginner-tag: gainsboro;
+
+  /* Height and width */
+  --min-width: 360px;
 }
 
-/* semantic color variables for this project */
-/* :root {
+/* Regular theme */
+:root {
+  color: var(--color-text);
+}
 
-} */
-
+/* Dark theme */
 /* @media (prefers-color-scheme: dark) {
   :root {
 
@@ -21,8 +25,6 @@
 } */
 
 body {
-  color: var(--color-text);
-  background: var(--color-background);
   transition:
     color 0.5s,
     background-color 0.5s;

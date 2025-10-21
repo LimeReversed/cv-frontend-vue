@@ -1,12 +1,30 @@
 <script setup lang="ts">
 import DropDownFilter from './DropDownFilter.vue'
 import { experienceStore } from '../stores/experience'
+import { ref, type Ref } from 'vue'
+import Modal from './Modal.vue'
 
 const store = experienceStore()
+
+const show: Ref<boolean> = ref(false)
 </script>
 
 <template>
   <div class="filter-container">
+    <DropDownFilter name="Filter" :tags="[]" @click="show = true" />
+    <div v-if="show" class="dropdown-container">
+      <Modal title="Filter" @close="show = false">
+        <DropDownFilter
+          v-for="tagKeyValue in store.tagsByCategory"
+          :key="tagKeyValue[0]"
+          :name="tagKeyValue[0]"
+          :tags="tagKeyValue[1]"
+        />
+      </Modal>
+    </div>
+  </div>
+
+  <div class="filter-container-desktop">
     <DropDownFilter
       v-for="tagKeyValue in store.tagsByCategory"
       :key="tagKeyValue[0]"
@@ -19,19 +37,32 @@ const store = experienceStore()
 <style scoped>
 @import '../assets/main.css';
 
-.filter-container {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+.filter-container-desktop {
+  display: none;
 }
 
-.drop-down-button {
-  margin: 20px 30px;
-  border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.7);
-  height: 35px;
-  width: 200px;
+.filter-container {
+  display: flex;
+}
+
+.filter-container,
+.filter-container-desktop {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  border-bottom: solid 1px gainsboro;
+}
+
+@media (min-width: 1024px) {
+  .filter-container-desktop {
+    flex-wrap: nowrap;
+    display: flex;
+  }
+
+  .filter-container {
+    display: none;
+  }
 }
 </style>

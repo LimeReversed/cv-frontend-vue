@@ -32,9 +32,9 @@ const sortedTags = (tags: TagType[]) => {
         {{ period }}
       </p>
     </div>
-    <p>{{ experience.tldr }}</p>
+    <p class="tldr">{{ experience.tldr }}</p>
     <div class="tags">
-      <div class="tag" v-for="tag in sortedTags(experience.tags)" :key="tag.name">
+      <div class="tag" v-for="tag in sortedTags(experience.tags)" :key="tag.id">
         <Tag :tag="tag" />
       </div>
     </div>
@@ -90,5 +90,9 @@ const sortedTags = (tags: TagType[]) => {
 
 .project-image {
   max-height: 300px;
+}
+
+.tldr {
+  text-align: justify;
 }
 </style>
