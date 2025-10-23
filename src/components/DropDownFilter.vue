@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type Tag from '@/classes/tag'
-import { type Ref, ref } from 'vue'
 import { experienceStore } from '../stores/experience'
 import CheckBox from './CheckBox.vue'
 
@@ -10,8 +9,6 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['click', 'mouseenter', 'mouseleave'])
-
-const show: Ref<boolean> = ref(false)
 const store = experienceStore()
 
 const clickHandler = () => {
@@ -21,7 +18,7 @@ const clickHandler = () => {
 
 <template>
   <div class="button-container">
-    <div class="button" @click="clickHandler">
+    <div class="filter-button" @click="clickHandler">
       <p class="category-name">{{ props.name }}</p>
       <p class="arrow"></p>
     </div>
@@ -40,7 +37,7 @@ const clickHandler = () => {
 </template>
 
 <style scoped>
-@import '../assets/main.css';
+@import '@css/main.css';
 
 .button-container {
   --button-height: 35px;
@@ -50,22 +47,10 @@ const clickHandler = () => {
   cursor: pointer;
 }
 
-.drop-down-container {
-  display: none;
-}
-
-.button-container:focus .drop-down-container {
-  display: block;
-  width: 100%;
-  animation-name: showDropdown;
-  animation-duration: 0.3s;
-}
-
 .drop-down {
   width: 100%;
   background-color: rgba(255, 255, 255, 1);
   margin: 0px;
-  padding: 10px 0px;
 }
 
 .item {
@@ -77,36 +62,8 @@ const clickHandler = () => {
   padding: 10px 35px;
 }
 
-.button {
-  width: 100%;
-  height: 100%;
-  padding: 20px 25px;
-  display: inline-flex;
-  justify-content: center;
-  background-color: unset;
-  border: unset;
-}
-
-.button:focus .arrow:after {
-  content: '▲';
-}
-.arrow:after {
-  content: '▼';
-}
-
-.button p {
-  margin-left: 10px;
-  line-height: 45px;
-  font-weight: bold;
-  color: rgba(73, 59, 74, 0.7);
-  width: 20%;
-  text-align: right;
-}
-
-.button .category-name {
-  color: rgba(73, 59, 74, 0.9);
-  width: 80%;
-  text-align: left;
+.item:nth-child(even) {
+  background-color: rgb(244, 244, 244);
 }
 
 .item p {
@@ -154,20 +111,10 @@ const clickHandler = () => {
     animation-duration: 0.3s;
   }
 
-  .button-container:hover .arrow:after {
-    content: '▲';
-  }
-  .arrow:after {
-    content: '▼';
-  }
-
   .button-container {
     width: unset;
     height: 100%;
-  }
-
-  .button {
-    height: 100%;
+    z-index: 999;
   }
 
   .drop-down {
@@ -175,16 +122,19 @@ const clickHandler = () => {
     border: solid 0.5px gainsboro;
     border-radius: var(--border-radius);
     margin-top: calc(var(--button-height) + 10px);
+    padding: 10px 0px;
   }
 
-  .button p {
-    text-align: center;
+  .item:nth-child(even) {
+    background-color: unset;
   }
 
-  .button .category-name {
-    text-align: center;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+  .item:first-child {
+    padding: 10px 35px;
+  }
+
+  .item:last-child {
+    padding: 10px 35px;
   }
 }
 </style>

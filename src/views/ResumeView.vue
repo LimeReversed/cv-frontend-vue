@@ -39,7 +39,7 @@ const store = experienceStore()
 </template>
 
 <style scoped>
-@import '../assets/main.css';
+@import '@css/main.css';
 
 main {
   width: 100%;

@@ -11,9 +11,12 @@ const show: Ref<boolean> = ref(false)
 
 <template>
   <div class="filter-container">
-    <DropDownFilter name="Filter" :tags="[]" @click="show = true" />
+    <div class="filter-button" @click="show = true">
+      <p class="category-name">Filtrera</p>
+      <p class="arrow"></p>
+    </div>
     <div v-if="show" class="dropdown-container">
-      <Modal title="Filter" @close="show = false">
+      <Modal title="Filtrera" @close="show = false">
         <DropDownFilter
           v-for="tagKeyValue in store.tagsByCategory"
           :key="tagKeyValue[0]"
@@ -35,7 +38,7 @@ const show: Ref<boolean> = ref(false)
 </template>
 
 <style scoped>
-@import '../assets/main.css';
+@import '@css/main.css';
 
 .filter-container-desktop {
   display: none;
@@ -53,6 +56,11 @@ const show: Ref<boolean> = ref(false)
   flex-wrap: wrap;
   width: 100%;
   border-bottom: solid 1px gainsboro;
+  cursor: pointer;
+}
+
+.filter-button {
+  background-color: white;
 }
 
 @media (min-width: 1024px) {

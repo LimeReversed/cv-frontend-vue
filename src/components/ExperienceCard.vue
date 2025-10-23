@@ -38,25 +38,11 @@ const sortedTags = (tags: TagType[]) => {
         <Tag :tag="tag" />
       </div>
     </div>
-    <!-- <div v-if="expanded">
-      <p>{{ experience.description }}</p>
-      <h3>Project</h3>
-      <div v-for="project in experience.projects" :key="project.name">
-        <h4>{{ project.name }}</h4>
-        <p>{{ project.description }}</p>
-        <img
-          v-for="imagePath in project.imagepaths"
-          :key="imagePath"
-          :src="`/src/assets/images/${imagePath}`"
-          class="project-image"
-        />
-      </div>
-    </div> -->
   </div>
 </template>
 
 <style scoped>
-@import '../assets/main.css';
+@import '@css/main.css';
 
 .tags {
   margin: 10px 0px 20px 0px;

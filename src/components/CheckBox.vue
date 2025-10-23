@@ -12,7 +12,7 @@ const props = defineProps<{
 </template>
 
 <style lang="css" scoped>
-@import '../assets/main.css';
+@import '@css/main.css';
 
 .checkbox-container {
   position: relative;
@@ -44,6 +44,7 @@ const props = defineProps<{
   width: 100%;
   border: solid 1px gainsboro;
   border-radius: 5px;
+  background-color: white;
 }
 
 /* On mouse-over, add a grey background color */

@@ -27,7 +27,7 @@ const props = defineProps<{
 </style>
 
 <style scoped>
-@import '../assets/main.css';
+@import '@css/main.css';
 
 .modal-header {
   height: 50px;
