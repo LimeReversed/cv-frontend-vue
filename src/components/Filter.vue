@@ -56,7 +56,6 @@ const show: Ref<boolean> = ref(false)
   flex-wrap: wrap;
   width: 100%;
   border-bottom: solid 1px gainsboro;
-  cursor: pointer;
 }
 
 .filter-button {

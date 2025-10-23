@@ -73,22 +73,22 @@ const clickHandler = () => {
 /* Animation */
 @keyframes showDropdown {
   from {
-    top: 30px;
+    top: 15px;
     opacity: 0;
   }
   to {
-    top: 50px;
+    top: 30px;
     opacity: 1;
   }
 }
 
 @keyframes hideDropdown {
   from {
-    top: 50px;
+    top: 30px;
     opacity: 1;
   }
   to {
-    top: 30px;
+    top: 15px;
     opacity: 0;
   }
 }
@@ -97,7 +97,7 @@ const clickHandler = () => {
   .button-container .drop-down-container {
     visibility: hidden;
     position: absolute;
-    top: 50px;
+    top: 30px;
     left: 0px;
     width: 225px;
     animation-name: hideDropdown;

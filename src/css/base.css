@@ -7,6 +7,7 @@
   --color-confident-tag: rgb(246, 178, 255);
   --color-ok-tag: rgb(255, 235, 196);
   --color-beginner-tag: gainsboro;
+  --color-bar-border: rgb(126, 122, 130);
 
   /* Height and width */
   --min-width: 360px;
