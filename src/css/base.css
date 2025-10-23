@@ -1,0 +1,50 @@
+/* Base variables */
+:root {
+  /* Colors */
+  --color-text: #302343;
+  --text-purple: rgb(124, 0, 151);
+
+  --color-confident-tag: rgb(246, 178, 255);
+  --color-ok-tag: rgb(255, 235, 196);
+  --color-beginner-tag: gainsboro;
+  --color-bar-border: rgb(126, 122, 130);
+
+  /* Height and width */
+  --min-width: 360px;
+}
+
+/* Regular theme */
+:root {
+  color: var(--color-text);
+}
+
+/* Dark theme */
+/* @media (prefers-color-scheme: dark) {
+  :root {
+
+  }
+} */
+
+body {
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

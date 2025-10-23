@@ -32,31 +32,17 @@ const sortedTags = (tags: TagType[]) => {
         {{ period }}
       </p>
     </div>
-    <p>{{ experience.tldr }}</p>
+    <p class="tldr">{{ experience.tldr }}</p>
     <div class="tags">
-      <div class="tag" v-for="tag in sortedTags(experience.tags)" :key="tag.name">
+      <div class="tag" v-for="tag in sortedTags(experience.tags)" :key="tag.id">
         <Tag :tag="tag" />
       </div>
     </div>
-    <!-- <div v-if="expanded">
-      <p>{{ experience.description }}</p>
-      <h3>Project</h3>
-      <div v-for="project in experience.projects" :key="project.name">
-        <h4>{{ project.name }}</h4>
-        <p>{{ project.description }}</p>
-        <img
-          v-for="imagePath in project.imagepaths"
-          :key="imagePath"
-          :src="`/src/assets/images/${imagePath}`"
-          class="project-image"
-        />
-      </div>
-    </div> -->
   </div>
 </template>
 
 <style scoped>
-@import '../assets/main.css';
+@import '@css/main.css';
 
 .tags {
   margin: 10px 0px 20px 0px;
@@ -90,5 +76,9 @@ const sortedTags = (tags: TagType[]) => {
 
 .project-image {
   max-height: 300px;
+}
+
+.tldr {
+  text-align: justify;
 }
 </style>

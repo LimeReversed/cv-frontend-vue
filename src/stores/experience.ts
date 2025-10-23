@@ -7,18 +7,12 @@ import Tag from '@/classes/tag'
 export const experienceStore = defineStore('experience', () => {
   /* STATE */
   const tags: Ref<Tag[]> = ref([])
-  const tagsToShow: Ref<Set<string>> = ref(new Set<string>())
+  const tagsToShow: Ref<Set<number>> = ref(new Set<number>())
   const jobs: Ref<ExperienceResponseItem[]> = ref([])
   const education: Ref<ExperienceResponseItem[]> = ref([])
   const hobbies: Ref<ExperienceResponseItem[]> = ref([])
 
   /* GETTTERS */
-  const filteredTags: ComputedRef<Tag[]> = computed(() =>
-    tagsToShow.value.size === 0
-      ? tags.value
-      : tags.value.filter((tag) => tagsToShow.value.has(tag.name)),
-  )
-
   const tagsByCategory: ComputedRef<Map<string, Tag[]>> = computed(() => {
     const map = new Map<string, Tag[]>()
 
@@ -33,11 +27,18 @@ export const experienceStore = defineStore('experience', () => {
     return map
   })
 
+  const filteredTags: ComputedRef<Tag[]> = computed(() =>
+    tagsToShow.value.size === 0
+      ? tags.value
+      : tags.value.filter((tag) => tagsToShow.value.has(tag.id)),
+  )
+
   const filteredJobs: ComputedRef<ExperienceResponseItem[]> = computed(() => {
     return tagsToShow.value.size === 0
       ? jobs.value
       : jobs.value.filter((job) => {
-          return job.tags.some((tag) => tagsToShow.value.has(tag.name))
+          // Returns true if the array of tags contains elements that also exist in the tagsToShow set.
+          return job.tags.some((tag) => tagsToShow.value.has(tag.id))
         })
   })
 
@@ -45,7 +46,7 @@ export const experienceStore = defineStore('experience', () => {
     return tagsToShow.value.size === 0
       ? education.value
       : education.value.filter((education) => {
-          return education.tags.some((tag) => tagsToShow.value.has(tag.name))
+          return education.tags.some((tag) => tagsToShow.value.has(tag.id))
         })
   })
 
@@ -53,17 +54,17 @@ export const experienceStore = defineStore('experience', () => {
     return tagsToShow.value.size === 0
       ? hobbies.value
       : hobbies.value.filter((hobby) => {
-          return hobby.tags.some((tag) => tagsToShow.value.has(tag.name))
+          return hobby.tags.some((tag) => tagsToShow.value.has(tag.id))
         })
   })
 
   /* ACTIONS */
   const checkTag = (tag: Tag) => {
-    tagsToShow.value.add(tag.name)
+    tagsToShow.value.add(tag.id)
   }
 
   const uncheckTag = (tag: Tag) => {
-    tagsToShow.value.delete(tag.name)
+    tagsToShow.value.delete(tag.id)
   }
 
   async function loadAll() {
@@ -106,8 +107,9 @@ export const experienceStore = defineStore('experience', () => {
 
     experience.forEach((ex) => {
       ex.tags.forEach((tag) => {
-        if (!seen.has(tag.name)) {
-          seen.add(tag.name)
+        // Only add a tag once.
+        if (!seen.has(tag.id)) {
+          seen.add(tag.id)
           result.push(new Tag(tag.id, tag.name, tag.level, tag.category))
         }
       })

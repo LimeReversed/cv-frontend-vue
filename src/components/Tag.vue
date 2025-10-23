@@ -26,7 +26,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-@import '../assets/main.css';
+@import '@css/main.css';
 
 .tag-container {
   --container-height: 35px;
