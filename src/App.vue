@@ -13,7 +13,7 @@ onMounted(() => {
     <header class="header"></header>
     <div class="bar">
       <div class="bar-left">
-        <img src="/src/assets/images/pfp.png" id="profile-picture" />
+        <img src="/src/assets/images/Pfp.webp" id="profile-picture" />
         <p>Emil Rundberg</p>
       </div>
       <div class="menu">
@@ -60,6 +60,7 @@ onMounted(() => {
   border-bottom: 1px solid var(--color-bar-border);
   z-index: 1000;
   height: var(--bar-height);
+  padding: 0px 50px;
 }
 
 .bar-left {
@@ -76,7 +77,7 @@ onMounted(() => {
 
 #profile-picture {
   height: calc(var(--bar-height) - 20px);
-  margin: 10px 30px 10px 10px;
+  margin-right: 30px;
   border: 5px solid white;
   border-radius: 50%;
 }
@@ -105,6 +106,10 @@ onMounted(() => {
   cursor: pointer;
 }
 
+.menu-item:last-child {
+  margin-right: 0px;
+}
+
 .menu-item p {
   color: rgb(163, 163, 163);
 }
@@ -113,7 +118,7 @@ onMounted(() => {
   color: rgba(73, 59, 74, 0.8);
 }
 
-@media (max-width: 750px) {
+@media (max-width: 800px) {
   .menu-item {
     display: none;
   }
