@@ -118,9 +118,13 @@ onMounted(() => {
   color: rgba(73, 59, 74, 0.8);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 820px) {
   .menu-item {
     display: none;
+  }
+
+  .bar {
+    padding: 0px 20px;
   }
 }
 </style>

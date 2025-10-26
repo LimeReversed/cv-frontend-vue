@@ -1,0 +1,33 @@
+A
+- Solve the "Not secure" issue
+- Uppdatera nivån på tags. Jag ändrade några i senaste CV:t
+- Skapa komponent för att visa erferenheterna i mer detalj.
+- Lägg till fler erfarenheter.
+- Lägg till länkar till github repositories. Ha det i inledningen for now?
+
+B
+- Pick fonts
+- Tänk igenom UX. Är det tydligt för användaren var hen är och var hen kan hitta det hen söker?
+- Hitta en lösning för experience card så att det inte är så top OCH bottom heavy i vad som kräver fokus. Välj top heavy. Eller kanske lägg tagsen till vänster?
+  Nackdelen skulle vara att tagsen inte fyller ut utrymmet till vänster, eller kräver för mycket plats. 
+
+C
+- Add variables for padding/margin
+- Läs på hur jag får en bild att se högupplöst ut på skärmen. Känns som att jag kan göra headerbakgrunden bättre. 
+- Låt menyvalen i header bar bli en burger när det är för lite utrymme. 
+
+Unsorted
+- Hitta lösning för hur jag uppdaterar databasen, utan att ändra allt annat också, så att vi behåller framtida user generated content. 
+
+
+
+
+
+
+
+
+
+
+
+
+
