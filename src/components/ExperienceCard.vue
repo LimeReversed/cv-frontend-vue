@@ -25,7 +25,7 @@ const sortedTags = (tags: TagType[]) => {
 
 <template>
   <div class="experience-card-container">
-    <h2 class="experience-card-title">{{ experience.title }}</h2>
+    <h2 class="experience-card-title">{{ experience.title }} ></h2>
     <div class="details">
       <p style="padding-right: 15px">{{ experience.orgName }}</p>
       <p>
@@ -56,9 +56,14 @@ const sortedTags = (tags: TagType[]) => {
   position: relative;
   width: 100%;
   max-width: 800px;
-  padding: 0px 40px 10px 40px;
+  padding: 20px 40px 10px 40px;
   border-bottom: solid 1px rgb(216, 216, 216);
-  margin-bottom: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.experience-card-container:hover {
+  background-color: rgb(254, 234, 255);
 }
 
 .details {

@@ -1,19 +1,10 @@
-<script setup lang="ts">
-const props = defineProps<{
-  title: string
-}>()
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="modal">
-    <div class="modal-header">
-      <div class="title-container">
-        <p>{{ props.title }}</p>
-      </div>
-      <button class="x-button-container" @click="$emit('close')">
-        <p>X</p>
-      </button>
-    </div>
+    <button class="x-button-container" @click="$emit('close')">
+      <p>X</p>
+    </button>
     <slot></slot>
   </div>
 </template>
@@ -29,30 +20,23 @@ const props = defineProps<{
 <style scoped>
 @import '@css/main.css';
 
-.modal-header {
-  height: 50px;
-  width: 100%;
-  display: flex;
-  background-color: white;
-}
-
-.title-container,
 .x-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
   background-color: white;
-}
-
-.title-container {
-  width: 90%;
+  border-radius: 5px;
+  border: black 1px solid;
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  z-index: 9999;
 }
 
 .x-button-container {
-  width: 10%;
   cursor: pointer;
-  padding: 0px 20px;
+  padding: 20px 30px;
 }
 
 .title-container p {
@@ -60,12 +44,12 @@ const props = defineProps<{
 }
 
 .x-button-container:hover {
-  background-color: black;
+  background-color: rgb(142, 0, 0);
   color: white;
 }
 
 .x-button-container:active {
-  background-color: black;
+  background-color: rgb(142, 0, 0);
   color: white;
 }
 
@@ -75,12 +59,11 @@ const props = defineProps<{
 
 .modal {
   position: fixed;
-  z-index: 9999;
+  z-index: 9998;
   height: 100vh;
   width: 100%;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.6);
-  overflow: auto;
 }
 </style>

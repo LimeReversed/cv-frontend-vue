@@ -3,13 +3,39 @@ import ExperienceCard from '@/components/ExperienceCard.vue'
 import { experienceStore } from '../stores/experience'
 import TagComponent from '@/components/Tag.vue'
 import Filter from '@/components/Filter.vue'
+import Modal from '@/components/Modal.vue'
+import ExperienceCardFullscreen from '@/components/ExperienceCardFullscreen.vue'
+import type { ExperienceResponseItem } from '@/classes/experience'
+import { type Ref, ref } from 'vue'
 
 const store = experienceStore()
+const currentExperience: Ref<ExperienceResponseItem> = ref({} as ExperienceResponseItem)
+const showFullscreen: Ref<boolean> = ref(false)
+
+const cardClicked = (experience: ExperienceResponseItem) => {
+  currentExperience.value = experience
+  showFullscreen.value = true
+}
 </script>
 
 <template>
   <main>
+    <Modal v-if="showFullscreen" @close="showFullscreen = false">
+      <ExperienceCardFullscreen :experience="currentExperience" />
+    </Modal>
     <Filter />
+    <div class="intro">
+      <p>
+        Jag byggde den här sidan med
+        <a target="_blank" href="https://github.com/LimeReversed/cv-frontend-vue"
+          >Vue som frontend</a
+        >
+        och
+        <a target="_blank" href="https://github.com/LimeReversed/cv-backend-csharp"
+          >C# som backend</a
+        >. Klicka på länkarna för att komma till respektive repository.
+      </p>
+    </div>
     <div class="level-indicator-container">
       <div class="level-indicator-item">
         <div class="confident-indicator"></div>
@@ -30,11 +56,26 @@ const store = experienceStore()
       </div>
     </div>
     <h1 v-if="store.filteredJobs.length > 0">Erfarenheter</h1>
-    <ExperienceCard v-for="ex in store.filteredJobs" :key="ex.title" :experience="ex" />
+    <ExperienceCard
+      v-for="ex in store.filteredJobs"
+      :key="ex.title"
+      :experience="ex"
+      @click="cardClicked(ex)"
+    />
     <h1 v-if="store.filteredEducation.length > 0">Utbildning</h1>
-    <ExperienceCard v-for="ed in store.filteredEducation" :key="ed.title" :experience="ed" />
+    <ExperienceCard
+      v-for="ed in store.filteredEducation"
+      :key="ed.title"
+      :experience="ed"
+      @click="cardClicked(ed)"
+    />
     <h1 v-if="store.filteredHobbies.length > 0">Hobbies</h1>
-    <ExperienceCard v-for="hobby in store.filteredHobbies" :key="hobby.title" :experience="hobby" />
+    <ExperienceCard
+      v-for="hobby in store.filteredHobbies"
+      :key="hobby.title"
+      :experience="hobby"
+      @click="cardClicked(hobby)"
+    />
   </main>
 </template>
 
@@ -65,7 +106,7 @@ main {
   justify-content: space-around;
   width: 100%;
   max-width: 1024px;
-  padding: 50px 0px 25px 0px;
+  padding: 25px 0px 25px 0px;
 }
 
 .level-indicator-item {
@@ -96,7 +137,7 @@ main {
   border-radius: 10px;
 }
 
-h1 {
-  padding-bottom: 20px;
+.intro {
+  padding: 50px 25px 25px 25px;
 }
 </style>

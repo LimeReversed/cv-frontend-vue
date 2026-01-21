@@ -16,7 +16,10 @@ const show: Ref<boolean> = ref(false)
       <p class="arrow"></p>
     </div>
     <div v-if="show" class="dropdown-container">
-      <Modal title="Filtrera" @close="show = false">
+      <Modal @close="show = false">
+        <div class="filter-header">
+          <p class="category-name">Filtrera</p>
+        </div>
         <DropDownFilter
           v-for="tagKeyValue in store.tagsByCategory"
           :key="tagKeyValue[0]"
@@ -39,6 +42,18 @@ const show: Ref<boolean> = ref(false)
 
 <style scoped>
 @import '@css/main.css';
+
+.filter-header {
+  display: inline-flex;
+  justify-content: center;
+  background-color: white;
+  width: 100%;
+  padding: 20px 30px;
+}
+
+.filter-header p {
+  font-size: x-large;
+}
 
 .filter-container-desktop {
   display: none;

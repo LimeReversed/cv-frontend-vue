@@ -1,4 +1,5 @@
 export interface ProjectResponseItem {
+  id: number
   name: string
   description: string
   link: string
@@ -6,14 +7,15 @@ export interface ProjectResponseItem {
 
 export interface ImagePathResponseItem {
   projectId: number
-  imagePath: string
+  path: string
 }
 
 export class Project {
   constructor(
+    public id: number,
     public name: string,
     public description: string,
-    public imagepaths: string[],
+    public imagepaths: ImagePathResponseItem[],
     public link: string,
   ) {}
 }
